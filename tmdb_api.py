@@ -15,9 +15,9 @@ min_date_upcoming = (today+timedelta(weeks=1)).strftime('%Y-%m-%d')
 load_dotenv()
 ACCESS_TOKEN = os.getenv('TMDB_ACCESS_TOKEN')
 
-base_url = 'https://api.themoviedb.org/3'
+BASE_URL = 'https://api.themoviedb.org/3'
 
-headers = {
+HEADERS = {
     'Authorization': f'Bearer {ACCESS_TOKEN}',
     'accept': 'application/json'
 }
@@ -57,10 +57,10 @@ def fetch_data(specification: str) -> dict:
         local_params['release_date.lte'] = max_date_upcoming
         path = '/discover/movie'
 
-    endpoint = base_url+path
+    endpoint = BASE_URL+path
 
     try:
-        response = requests.get(url=endpoint, params=local_params, headers= headers)
+        response = requests.get(url=endpoint, params=local_params, headers= HEADERS)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
